@@ -308,6 +308,14 @@
   .video-frame{position:relative; overflow:hidden; aspect-ratio:480/810; width:100%; max-width:320px;}
   .video-frame video{width:100%; height:100%; object-fit:cover; display:block; background:#000;}
 
+  /* trust strip */
+  .trust-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:44px;}
+  @media (max-width:760px){ .trust-strip{grid-template-columns:repeat(2,1fr);} }
+  .trust-strip > div{background:var(--surface); padding:26px 22px; text-align:center;}
+  .trust-strip svg{width:26px;height:26px;color:var(--boost); margin:0 auto 14px;}
+  .trust-strip strong{display:block; font-family:var(--font-display); text-transform:uppercase; letter-spacing:.02em; font-size:.92rem; color:var(--ink); margin-bottom:6px;}
+  .trust-strip p{font-size:.82rem; color:var(--ink-dim); line-height:1.5;}
+
   /* card grid (section 4) */
   .card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:8px;}
   @media (max-width:860px){ .card-grid{grid-template-columns:repeat(2,1fr);} }
@@ -671,6 +679,38 @@
           Quiero cotizar para mi taller
         </a>
         <p class="hero-note" style="margin-top:14px;">331 796 0077 — línea directa talleres</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPROMISO -->
+  <section class="section section-alt">
+    <div class="wrap">
+      <div class="section-head reveal" style="margin-bottom:0;">
+        <div class="eyebrow">Nuestro compromiso, no promesas vacías</div>
+        <h2>Esto es lo que puedes esperar al comprar con nosotros</h2>
+      </div>
+      <div class="trust-strip reveal">
+        <div>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><polyline points="13,20 18,25 27,14"/></svg>
+          <strong>Verificamos antes de vender</strong>
+          <p>Revisamos marca, modelo, año y motor de tu vehículo antes de recomendarte un turbo.</p>
+        </div>
+        <div>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4 33 9v9c0 9-6 14-13 17-7-3-13-8-13-17V9Z"/><polyline points="14,19 18,23 27,13"/></svg>
+          <strong>Garantía en cada turbo</strong>
+          <p>Pregunta por las condiciones de garantía correspondientes a tu aplicación.</p>
+        </div>
+        <div>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20a14 14 0 1 1 5.3 11L6 33l2-5.6A13.9 13.9 0 0 1 6 20Z"/><line x1="13" y1="19" x2="27" y2="19"/><line x1="13" y1="25" x2="23" y2="25"/></svg>
+          <strong>Atención directa</strong>
+          <p>Hablas por WhatsApp con quien conoce de turbos, sin intermediarios ni vueltas.</p>
+        </div>
+        <div>
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="16" width="28" height="16" rx="2"/><path d="M14 16v-4a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v4"/><line x1="6" y1="24" x2="34" y2="24"/></svg>
+          <strong>También para talleres</strong>
+          <p>Un mismo proveedor para tus próximos trabajos, con distintas aplicaciones disponibles.</p>
+        </div>
       </div>
     </div>
   </section>
