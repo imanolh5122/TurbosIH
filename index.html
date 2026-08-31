@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turbos IH — Especialistas en turbocargadores</title>
+<meta name="description" content="Turbos IH: turbocargadores diésel y gasolina para autos, camionetas y vehículos de trabajo. Verificamos la aplicación correcta antes de vender.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%2314171B'/%3E%3Ccircle cx='20' cy='20' r='7' fill='none' stroke='%23FF5A36' stroke-width='2'/%3E%3Cg stroke='%23FF5A36' stroke-width='2' stroke-linecap='round'%3E%3Cline x1='20' y1='4' x2='20' y2='10'/%3E%3Cline x1='20' y1='30' x2='20' y2='36'/%3E%3Cline x1='4' y1='20' x2='10' y2='20'/%3E%3Cline x1='30' y1='20' x2='36' y2='20'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14171B;
+    --surface:#1B1F24;
+    --surface-2:#232830;
+    --ink:#ECE9E2;
+    --ink-dim:#9CA3AE;
+    --ink-faint:#6B7280;
+    --line:#333A42;
+    --line-soft:#262C33;
+    --boost:#FF5A36;
+    --boost-ink:#1A0D08;
+    --brass:#D4AF37;
+    --shadow: 0 20px 60px -20px rgba(0,0,0,.6);
+    --font-display:'Oswald',"Arial Narrow",sans-serif;
+    --font-body:'IBM Plex Sans',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#F1EEE5;
+      --surface:#FBFAF5;
+      --surface-2:#E9E3D3;
+      --ink:#1B1D1F;
+      --ink-dim:#5B6472;
+      --ink-faint:#7A8290;
+      --line:#D8D1BD;
+      --line-soft:#E3DCC9;
+      --boost:#D9420A;
+      --boost-ink:#FFFFFF;
+      --brass:#A9821A;
+      --shadow: 0 20px 50px -24px rgba(30,25,15,.28);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#F1EEE5;
+    --surface:#FBFAF5;
+    --surface-2:#E9E3D3;
+    --ink:#1B1D1F;
+    --ink-dim:#5B6472;
+    --ink-faint:#7A8290;
+    --line:#D8D1BD;
+    --line-soft:#E3DCC9;
+    --boost:#D9420A;
+    --boost-ink:#FFFFFF;
+    --brass:#A9821A;
+    --shadow: 0 20px 50px -24px rgba(30,25,15,.28);
+  }
+  :root[data-theme="dark"]{
+    --bg:#14171B;
+    --surface:#1B1F24;
+    --surface-2:#232830;
+    --ink:#ECE9E2;
+    --ink-dim:#9CA3AE;
+    --ink-faint:#6B7280;
+    --line:#333A42;
+    --line-soft:#262C33;
+    --boost:#FF5A36;
+    --boost-ink:#1A0D08;
+    --brass:#D4AF37;
+    --shadow: 0 20px 60px -20px rgba(0,0,0,.6);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:88px;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3{
+    font-family:var(--font-display);
+    text-transform:uppercase;
+    letter-spacing:.01em;
+    text-wrap:balance;
+    margin:0;
+    font-weight:600;
+  }
+  p{margin:0;}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+  :focus-visible{outline:2px solid var(--boost); outline-offset:3px;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding-inline:24px;
+  }
+  section{position:relative;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--boost);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:var(--boost);
+    display:inline-block;
+  }
+
+  /* ---------- corner-tick / spec-plate motif ---------- */
+  .plate{
+    position:relative;
+    border:1px solid var(--line);
+    background:var(--surface);
+  }
+  .plate::before,.plate::after,
+  .plate .tick-a,.plate .tick-b{
+    content:"";
+    position:absolute;
+    width:10px;height:10px;
+    border:1px solid var(--brass);
+    opacity:.85;
+  }
+  .plate::before{ top:-1px; left:-1px; border-width:1px 0 0 1px; }
+  .plate::after{ top:-1px; right:-1px; border-width:1px 1px 0 0; }
+  .plate .tick-a{ bottom:-1px; left:-1px; border-width:0 0 1px 1px; }
+  .plate .tick-b{ bottom:-1px; right:-1px; border-width:0 1px 1px 0; }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--font-display);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    font-size:.92rem;
+    font-weight:600;
+    padding:15px 26px;
+    border-radius:2px;
+    text-decoration:none;
+    border:1px solid transparent;
+    transition:transform .15s ease, background .2s ease, border-color .2s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--boost); color:var(--boost-ink);}
+  .btn-primary:hover{background:color-mix(in srgb, var(--boost) 88%, white 12%);}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--boost); color:var(--boost);}
+  .btn svg{width:18px;height:18px;flex:none;}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed; inset:0 0 auto 0; z-index:50;
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .brand-mark{width:30px;height:30px;color:var(--boost);}
+  .brand-word{font-family:var(--font-display); font-size:1.15rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700;}
+  .brand-word b{color:var(--boost); font-weight:700;}
+  nav.primary-links{display:flex; gap:30px; list-style:none; margin:0; padding:0;}
+  nav.primary-links a{
+    font-family:var(--font-mono); font-size:.78rem; letter-spacing:.06em;
+    text-transform:uppercase; text-decoration:none; color:var(--ink-dim);
+    transition:color .15s ease;
+  }
+  nav.primary-links a:hover{color:var(--boost);}
+  .nav-actions{display:flex; align-items:center; gap:16px;}
+  .nav-cta{display:none;}
+  .nav-toggle{
+    display:flex; background:none; border:1px solid var(--line); color:var(--ink);
+    width:42px;height:42px; align-items:center; justify-content:center; border-radius:2px;
+    cursor:pointer;
+  }
+  .nav-toggle svg{width:20px;height:20px;}
+  .mobile-panel{
+    display:none; position:fixed; inset:76px 0 auto 0; z-index:49;
+    background:var(--bg); border-bottom:1px solid var(--line);
+    padding:8px 24px 24px;
+  }
+  .mobile-panel.open{display:block;}
+  .mobile-panel a{
+    display:block; padding:14px 0; text-decoration:none; color:var(--ink);
+    font-family:var(--font-display); text-transform:uppercase; letter-spacing:.04em;
+    border-bottom:1px solid var(--line-soft); font-size:1rem;
+  }
+  .mobile-panel .btn{margin-top:16px; width:100%; justify-content:center;}
+
+  @media (min-width:900px){
+    .nav-toggle,.mobile-panel{display:none !important;}
+    .nav-cta{display:inline-flex;}
+  }
+  @media (max-width:899px){
+    nav.primary-links{display:none;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:158px 0 100px;
+    position:relative;
+    overflow:hidden;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 39px, var(--line-soft) 39px 40px),
+      repeating-linear-gradient(90deg, transparent 0 39px, var(--line-soft) 39px 40px);
+    background-size:40px 40px;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse 60% 50% at 30% 40%, var(--bg) 10%, transparent 72%),
+               linear-gradient(180deg, transparent 60%, var(--bg) 100%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative; z-index:1;
+    display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.3rem, 4.6vw, 3.6rem);
+    line-height:1.06;
+    color:var(--ink);
+  }
+  .hero h1 em{font-style:normal; color:var(--boost);}
+  .hero-lede{margin-top:26px; display:flex; flex-direction:column; gap:16px; max-width:52ch;}
+  .hero-lede p{color:var(--ink-dim); font-size:1.02rem;}
+  .hero-lede p strong{color:var(--ink); font-weight:600;}
+  .hero-eyebrow{margin-bottom:22px;}
+  .hero-cta{margin-top:36px; display:flex; flex-wrap:wrap; gap:16px; align-items:center;}
+  .hero-note{font-family:var(--font-mono); font-size:.78rem; color:var(--ink-faint); letter-spacing:.03em;}
+
+  .hero-art{position:relative; aspect-ratio:4/3.1;}
+  .turbo-diagram{width:100%; height:100%; overflow:visible;}
+  .wheel{transform-box:fill-box; transform-origin:center; animation:spin 5s linear infinite;}
+  .wheel.rev{animation-direction:reverse; animation-duration:4.2s;}
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .diagram-label{font-family:var(--font-mono); font-size:9.5px; letter-spacing:.08em; fill:var(--ink-faint); text-transform:uppercase;}
+  .diagram-line{stroke:var(--ink-faint); stroke-width:1;}
+
+  /* ---------- section shell ---------- */
+  .section{padding:96px 0;}
+  .section-alt{background:var(--surface);}
+  .section-head{max-width:62ch; margin-bottom:52px;}
+  .section-head h2{font-size:clamp(1.6rem,2.7vw,2.2rem); margin-top:16px; color:var(--ink);}
+  .section-head .lede{margin-top:18px; color:var(--ink-dim); font-size:1.02rem; max-width:58ch;}
+
+  /* ---------- checklist ---------- */
+  .checklist{list-style:none; margin:24px 0 0; padding:0; display:grid; gap:12px;}
+  .checklist li{display:flex; gap:12px; align-items:flex-start; color:var(--ink-dim); font-size:.98rem;}
+  .checklist svg{width:18px;height:18px;flex:none;margin-top:2px;color:var(--boost);}
+
+  .two-col{display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:center;}
+  @media (max-width:860px){ .two-col{grid-template-columns:1fr;} .hero-grid{grid-template-columns:1fr;} }
+
+  /* gauge */
+  .gauge-wrap{display:flex; justify-content:center;}
+  .gauge{width:min(320px, 80%);}
+  .gauge-needle{transform-box:fill-box; transform-origin:center; animation:tick 3.4s ease-in-out infinite;}
+  @keyframes tick{ 0%,100%{transform:rotate(-6deg);} 50%{transform:rotate(9deg);} }
+
+  /* protect-your-investment tag grid */
+  .tag-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:32px;}
+  .tag-grid > div{background:var(--surface); padding:20px; display:flex; gap:12px; align-items:flex-start;}
+  .section-alt .tag-grid > div{background:var(--bg);}
+  .tag-grid span.n{font-family:var(--font-mono); color:var(--brass); font-size:.78rem; flex:none;}
+  .tag-grid p{font-size:.92rem; color:var(--ink-dim);}
+  .tag-foot{margin-top:18px; font-family:var(--font-mono); font-size:.82rem; color:var(--ink-faint);}
+
+  /* card grid (section 4) */
+  .card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:8px;}
+  @media (max-width:860px){ .card-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .card-grid{grid-template-columns:1fr;} }
+  .card{background:var(--surface); padding:32px 26px;}
+  .card svg{width:34px;height:34px; color:var(--boost); margin-bottom:18px;}
+  .card h3{font-size:1.02rem; letter-spacing:.02em; margin-bottom:10px;}
+  .card p{color:var(--ink-dim); font-size:.92rem;}
+
+  /* applications */
+  .app-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:36px;}
+  @media (max-width:940px){ .app-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:560px){ .app-grid{grid-template-columns:repeat(2,1fr);} }
+  .app-card{padding:22px 16px; text-align:left;}
+  .app-card .model{font-family:var(--font-mono); font-size:1.05rem; color:var(--brass); letter-spacing:.02em;}
+  .app-card p{margin-top:10px; font-size:.84rem; color:var(--ink-dim); line-height:1.5;}
+  .app-more{margin-top:44px; display:flex; align-items:center; gap:22px; flex-wrap:wrap; padding-top:28px; border-top:1px solid var(--line);}
+  .app-more p{color:var(--ink-dim); max-width:46ch; font-size:.95rem;}
+  .app-more strong{display:block; color:var(--ink); font-family:var(--font-display); text-transform:uppercase; font-size:1rem; letter-spacing:.02em; margin-bottom:6px;}
+
+  /* quote steps */
+  .steps{list-style:none; margin:34px 0 0; padding:0; display:grid; gap:0; counter-reset:step;}
+  .steps li{
+    counter-increment:step;
+    display:grid; grid-template-columns:44px 1fr; gap:18px; align-items:center;
+    padding:16px 0; border-bottom:1px solid var(--line-soft);
+  }
+  .steps li:first-child{border-top:1px solid var(--line-soft);}
+  .steps li::before{
+    content:counter(step,decimal-leading-zero);
+    font-family:var(--font-mono); color:var(--boost); font-size:.95rem;
+    border:1px solid var(--line); width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .steps li span{color:var(--ink); font-size:.98rem;}
+
+  .quote-panel{display:grid; grid-template-columns:1fr .82fr; gap:60px; align-items:start;}
+  @media (max-width:900px){ .quote-panel{grid-template-columns:1fr;} }
+
+  /* workshops band */
+  .workshops{
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--boost) 10%, var(--bg)) 0%, var(--bg) 100%);
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .workshops-inner{display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center;}
+  @media (max-width:780px){ .workshops-inner{grid-template-columns:1fr;} }
+  .workshops h2{font-size:clamp(1.5rem,2.6vw,2.05rem);}
+  .workshops .lede{margin-top:16px; color:var(--ink-dim); max-width:56ch;}
+  .workshops .lede strong{color:var(--ink);}
+
+  /* closing */
+  .closing{text-align:center;}
+  .closing .wrap{max-width:760px;}
+  .closing p.big{font-size:clamp(1.1rem,2vw,1.35rem); color:var(--ink); margin-top:18px;}
+  .closing .brand-line{margin-top:44px; padding-top:36px; border-top:1px solid var(--line);}
+  .closing .brand-line .brand-word{font-size:1.5rem; display:block;}
+  .closing .brand-line p{margin-top:8px; color:var(--ink-dim); font-family:var(--font-mono); font-size:.85rem; letter-spacing:.05em; text-transform:uppercase;}
+  .closing .hero-cta{justify-content:center; margin-top:36px;}
+
+  /* footer */
+  footer{background:var(--surface); border-top:1px solid var(--line); padding:64px 0 32px;}
+  .foot-grid{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:48px;}
+  @media (max-width:760px){ .foot-grid{grid-template-columns:1fr; gap:36px;} }
+  .foot-grid h4{font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.1em; font-size:.75rem; color:var(--ink-faint); margin-bottom:16px;}
+  .contact-line{display:block; padding:14px 16px; margin-bottom:10px;}
+  .contact-line .label{display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px;}
+  .contact-line .num{font-family:var(--font-mono); font-size:1.05rem; color:var(--ink);}
+  a.contact-line{text-decoration:none; transition:border-color .15s ease;}
+  a.contact-line:hover{border-color:var(--boost);}
+  a.contact-line:hover .num{color:var(--boost);}
+  .foot-links{list-style:none; margin:0; padding:0; display:grid; gap:10px;}
+  .foot-links a{text-decoration:none; color:var(--ink-dim); font-size:.92rem;}
+  .foot-links a:hover{color:var(--boost);}
+  .foot-bottom{margin-top:56px; padding-top:24px; border-top:1px solid var(--line-soft); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-family:var(--font-mono); font-size:.76rem; color:var(--ink-faint);}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1; transform:none; transition:none;}
+    .wheel,.gauge-needle{animation:none;}
+    .btn:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-row">
+    <a href="#inicio" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="20" cy="20" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="20" y1="2" x2="20" y2="8"/>
+          <line x1="20" y1="32" x2="20" y2="38"/>
+          <line x1="2" y1="20" x2="8" y2="20"/>
+          <line x1="32" y1="20" x2="38" y2="20"/>
+        </g>
+      </svg>
+      <span class="brand-word">TURBOS <b>IH</b></span>
+    </a>
+    <nav class="primary-links" aria-label="Navegación principal">
+      <a href="#nosotros">Por qué nosotros</a>
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#aplicaciones">Aplicaciones</a>
+      <a href="#talleres">Talleres</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-primary nav-cta" href="https://wa.me/523319662931" target="_blank" rel="noopener">Cotizar ahora</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobilePanel" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#nosotros">Por qué nosotros</a>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#aplicaciones">Aplicaciones</a>
+    <a href="#talleres">Talleres</a>
+    <a class="btn btn-primary" href="https://wa.me/523319662931" target="_blank" rel="noopener">Cotizar ahora por WhatsApp</a>
+  </div>
+</header>
+
+<main id="inicio">
+
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow hero-eyebrow">Turbocargadores diésel &amp; gasolina</div>
+        <h1>Recupera la <em>potencia</em> de tu vehículo con el turbo correcto</h1>
+        <div class="hero-lede">
+          <p>¿Tu vehículo perdió potencia, presenta problemas de presión o necesitas reemplazar el turbo?</p>
+          <p><strong>En Turbos IH nos especializamos en turbocargadores diésel y gasolina</strong> para automóviles, camionetas y vehículos de trabajo.</p>
+          <p>No se trata simplemente de venderte un turbo. Queremos ayudarte a encontrar la opción compatible con tu aplicación para evitar compras equivocadas y gastos innecesarios.</p>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://wa.me/523319662931" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.3A8.6 8.6 0 0 0 3.6 16L2 22l6.2-1.6a8.6 8.6 0 0 0 4.1 1H12a8.6 8.6 0 0 0 5.6-15.1ZM12 20.2a7 7 0 0 1-3.6-1l-.3-.2-3.7 1 1-3.6-.2-.3A7.2 7.2 0 1 1 12 20.2Zm4-5.4c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1l-.7.9c-.1.1-.3.2-.5.1a5.8 5.8 0 0 1-2.9-2.5c-.2-.4.2-.3.6-1.1.1-.1 0-.3 0-.4L9.7 9.1c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.1 1.7 2.6 4.1 3.6.6.2 1 .4 1.4.5.6.2 1.1.1 1.5-.1.5-.2 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg>
+            Cotizar ahora por WhatsApp
+          </a>
+        </div>
+        <p class="hero-note">Línea de cotización general · 331 966 2931</p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg class="turbo-diagram" viewBox="0 0 480 340">
+          <circle cx="140" cy="176" r="72" fill="none" class="diagram-line" stroke-dasharray="192 60" transform="rotate(18 140 176)"/>
+          <circle cx="340" cy="176" r="72" fill="none" class="diagram-line" stroke-dasharray="192 60" transform="rotate(-24 340 176)"/>
+          <rect x="205" y="158" width="70" height="36" rx="6" fill="none" class="diagram-line"/>
+          <line x1="186" y1="176" x2="205" y2="176" class="diagram-line"/>
+          <line x1="275" y1="176" x2="294" y2="176" class="diagram-line"/>
+
+          <g class="wheel" style="color:var(--boost)">
+            <circle cx="140" cy="176" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+            <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(0 140 176)"/>
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(40 140 176)"/>
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(80 140 176)"/>
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(120 140 176)"/>
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(160 140 176)"/>
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(200 140 176)"/>
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(240 140 176)"/>
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(280 140 176)"/>
+              <line x1="140" y1="176" x2="140" y2="140" transform="rotate(320 140 176)"/>
+            </g>
+          </g>
+
+          <g class="wheel rev" style="color:var(--brass)">
+            <circle cx="340" cy="176" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+            <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(0 340 176)"/>
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(40 340 176)"/>
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(80 340 176)"/>
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(120 340 176)"/>
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(160 340 176)"/>
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(200 340 176)"/>
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(240 340 176)"/>
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(280 340 176)"/>
+              <line x1="340" y1="176" x2="340" y2="140" transform="rotate(320 340 176)"/>
+            </g>
+          </g>
+
+          <path d="M42 176 h34 m-10 -8 l10 8 -10 8" fill="none" class="diagram-line"/>
+          <text x="30" y="210" class="diagram-label">AIRE</text>
+
+          <path d="M404 176 h34 m-10 -8 l10 8 -10 8" fill="none" class="diagram-line"/>
+          <text x="392" y="210" class="diagram-label">ESCAPE</text>
+
+          <line x1="240" y1="158" x2="240" y2="122" class="diagram-line"/>
+          <text x="204" y="112" class="diagram-label">N.º SERIE · IH-561</text>
+
+          <g class="diagram-line" stroke-opacity=".5">
+            <line x1="18" y1="18" x2="18" y2="34"/><line x1="18" y1="18" x2="34" y2="18"/>
+            <line x1="462" y1="18" x2="462" y2="34"/><line x1="462" y1="18" x2="446" y2="18"/>
+            <line x1="18" y1="322" x2="18" y2="306"/><line x1="18" y1="322" x2="34" y2="322"/>
+            <line x1="462" y1="322" x2="462" y2="306"/><line x1="462" y1="322" x2="446" y2="322"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. POR QUÉ COMPRAR CON TURBOS IH -->
+  <section class="section" id="nosotros">
+    <div class="wrap two-col reveal">
+      <div>
+        <div class="eyebrow">Antes de vender, verificamos</div>
+        <h2 class="section-head" style="margin-bottom:0">Comprar un turbo porque "se parece" puede salir más caro</h2>
+        <p class="section-head lede" style="margin-bottom:0">Por eso, antes de recomendarte una opción podemos revisar información como:</p>
+        <ul class="checklist">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="4,13 9,18 20,6"/></svg> Marca y modelo del vehículo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="4,13 9,18 20,6"/></svg> Año</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="4,13 9,18 20,6"/></svg> Tipo de motor</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="4,13 9,18 20,6"/></svg> Número o modelo del turbo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="4,13 9,18 20,6"/></svg> Fotografías de tu pieza</li>
+        </ul>
+        <p style="margin-top:24px; color:var(--ink-dim);">Así podemos orientarte hacia el turbo adecuado para tu aplicación.</p>
+      </div>
+      <div class="gauge-wrap">
+        <svg class="gauge" viewBox="0 0 260 200" aria-hidden="true">
+          <path d="M30 160 A100 100 0 0 1 230 160" fill="none" stroke="var(--line)" stroke-width="2"/>
+          <g class="diagram-line">
+            <line x1="30" y1="160" x2="42" y2="150"/>
+            <line x1="55" y1="98" x2="65" y2="104"/>
+            <line x1="105" y1="65" x2="110" y2="76"/>
+            <line x1="150" y1="65" x2="150" y2="76"/>
+            <line x1="195" y1="98" x2="185" y2="104"/>
+            <line x1="230" y1="160" x2="218" y2="150"/>
+          </g>
+          <text x="42" y="180" class="diagram-label">MIN</text>
+          <text x="196" y="180" class="diagram-label">MAX</text>
+          <text x="105" y="46" class="diagram-label">PRESIÓN DE COMPATIBILIDAD</text>
+          <g class="gauge-needle" style="color:var(--boost)">
+            <line x1="130" y1="160" x2="185" y2="108" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <circle cx="130" cy="160" r="7" fill="var(--bg)" stroke="var(--brass)" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. EL PROBLEMA NO SIEMPRE ES SOLO EL TURBO -->
+  <section class="section section-alt" id="diagnostico">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Diagnóstico antes que reemplazo</div>
+        <h2>El problema no siempre es solo el turbo</h2>
+        <p class="lede">Cuando un turbocargador falla es importante revisar qué provocó el daño. Problemas de lubricación, líneas de aceite obstruidas, contaminación, problemas de admisión o escape y otras fallas del motor pueden afectar incluso un turbo recién instalado. Por eso recomendamos revisar correctamente el sistema antes de instalar el reemplazo.</p>
+      </div>
+
+      <div class="reveal">
+        <div class="eyebrow" style="margin-bottom:14px;">Protege tu inversión</div>
+        <p style="color:var(--ink-dim); max-width:58ch;">Antes de instalar recomendamos verificar:</p>
+        <div class="tag-grid">
+          <div><span class="n">01</span><p>Alimentación y retorno de aceite</p></div>
+          <div><span class="n">02</span><p>Aceite y filtro en condiciones adecuadas</p></div>
+          <div><span class="n">03</span><p>Sistema de admisión</p></div>
+          <div><span class="n">04</span><p>Intercooler y tuberías</p></div>
+          <div><span class="n">05</span><p>Sistema de escape</p></div>
+          <div><span class="n">06</span><p>Mangueras y conexiones</p></div>
+          <div><span class="n">07</span><p>Causa que dañó el turbo anterior</p></div>
+        </div>
+        <p class="tag-foot">Un buen turbo necesita una buena instalación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. POR QUÉ TURBOS IH -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">La diferencia frente a comprar a ciegas</div>
+        <h2>¿Por qué Turbos IH y no comprar cualquier turbo en internet?</h2>
+      </div>
+
+      <div class="card-grid reveal">
+        <div class="card">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="16" cy="16" r="9"/><line x1="23" y1="23" x2="34" y2="34"/></svg>
+          <h3>Atención especializada</h3>
+          <p>Nos dedicamos al área de turbocargadores. Puedes enviarnos los datos de tu vehículo y fotografías para revisar la aplicación antes de comprar.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><polyline points="13,20 18,25 27,14"/></svg>
+          <h3>Compatibilidad antes de vender</h3>
+          <p>Buscamos confirmar qué turbo necesitas en lugar de simplemente venderte una pieza porque físicamente parece similar.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="16" width="28" height="16" rx="2"/><path d="M14 16v-4a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v4"/><line x1="6" y1="24" x2="34" y2="24"/></svg>
+          <h3>Atención para talleres y mecánicos</h3>
+          <p>Si tienes un taller, podemos ayudarte a localizar diferentes aplicaciones y convertirnos en una opción para tus futuros trabajos de turbo.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 6C13 6 6 16 6 21a7 7 0 0 0 14 0C20 16 13 6 13 6Z"/><path d="M27 6C27 6 20 16 20 21a7 7 0 0 0 14 0C34 16 27 6 27 6Z" opacity=".55"/></svg>
+          <h3>Turbos diésel y gasolina</h3>
+          <p>Manejamos diferentes aplicaciones para vehículos particulares y de trabajo.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4 33 9v9c0 9-6 14-13 17-7-3-13-8-13-17V9Z"/><polyline points="14,19 18,23 27,13"/></svg>
+          <h3>Soporte antes de la instalación</h3>
+          <p>Podemos indicarte qué información revisar para reducir el riesgo de instalar un turbo sin haber corregido la causa de la falla anterior.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="14" r="10"/><polyline points="14,22 12,34 20,29 28,34 26,22"/></svg>
+          <h3>Garantía</h3>
+          <p>Pregunta por las condiciones de garantía correspondientes al turbo que necesitas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. APLICACIONES -->
+  <section class="section section-alt" id="aplicaciones">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Catálogo de referencia</div>
+        <h2>Algunas de nuestras aplicaciones</h2>
+      </div>
+
+      <div class="app-grid reveal">
+        <div class="app-card plate"><span class="tick-a"></span><span class="tick-b"></span>
+          <div class="model">HE561</div><p>Holset · aplicaciones para trabajo pesado.</p>
+        </div>
+        <div class="app-card plate"><span class="tick-a"></span><span class="tick-b"></span>
+          <div class="model">HE451</div><p>Holset · opciones para diferentes aplicaciones diésel.</p>
+        </div>
+        <div class="app-card plate"><span class="tick-a"></span><span class="tick-b"></span>
+          <div class="model">HX55</div><p>Holset · usado en diversas aplicaciones de motores diésel.</p>
+        </div>
+        <div class="app-card plate"><span class="tick-a"></span><span class="tick-b"></span>
+          <div class="model">K27</div><p>Disponible para aplicaciones compatibles.</p>
+        </div>
+        <div class="app-card plate"><span class="tick-a"></span><span class="tick-b"></span>
+          <div class="model">HT3B</div><p>Opciones para aplicaciones de trabajo pesado.</p>
+        </div>
+      </div>
+
+      <div class="app-more reveal">
+        <div>
+          <strong>¿No aparece el tuyo?</strong>
+          <p>Eso no significa que no podamos conseguirlo. Envíanos una fotografía o el número de tu turbo.</p>
+        </div>
+        <a class="btn btn-ghost" href="https://wa.me/523319662931" target="_blank" rel="noopener">Enviar mi número de turbo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. COTIZADOR -->
+  <section class="section">
+    <div class="wrap quote-panel">
+      <div class="reveal">
+        <div class="eyebrow">Cotización por WhatsApp</div>
+        <h2 class="section-head" style="margin-bottom:0">¿No sabes qué turbo necesitas? No compres a ciegas</h2>
+        <p class="section-head lede" style="margin-bottom:0">Mándanos por WhatsApp:</p>
+        <ol class="steps">
+          <li><span>Marca del vehículo</span></li>
+          <li><span>Modelo</span></li>
+          <li><span>Año</span></li>
+          <li><span>Motor</span></li>
+          <li><span>Foto de la placa o número del turbo</span></li>
+          <li><span>Fotos de tu turbo actual</span></li>
+        </ol>
+      </div>
+      <div class="reveal" style="align-self:start; margin-top:8px;">
+        <div class="plate" style="padding:36px 30px;">
+          <span class="tick-a"></span><span class="tick-b"></span>
+          <p style="color:var(--ink-dim); font-size:.96rem;">Con esos datos podremos revisar mejor qué opción necesitas.</p>
+          <a class="btn btn-primary" style="margin-top:22px; width:100%; justify-content:center;" href="https://wa.me/523319662931" target="_blank" rel="noopener">Cotizar mi turbo</a>
+          <p class="hero-note" style="margin-top:14px; text-align:center;">331 966 2931 — cotización general</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. TALLERES Y MECÁNICOS -->
+  <section class="workshops" id="talleres">
+    <div class="wrap workshops-inner reveal">
+      <div>
+        <div class="eyebrow">Para talleres y mecánicos</div>
+        <h2>Un proveedor de turbos para tus próximos trabajos</h2>
+        <p class="lede">Si constantemente recibes vehículos con problemas relacionados con turbocargadores, no necesitas buscar un vendedor diferente cada vez. Pregunta por disponibilidad para talleres y mecánicos. Cotiza diferentes aplicaciones desde un mismo lugar.</p>
+      </div>
+      <div>
+        <a class="btn btn-primary" href="https://wa.me/523317960077" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.3A8.6 8.6 0 0 0 3.6 16L2 22l6.2-1.6a8.6 8.6 0 0 0 4.1 1H12a8.6 8.6 0 0 0 5.6-15.1ZM12 20.2a7 7 0 0 1-3.6-1l-.3-.2-3.7 1 1-3.6-.2-.3A7.2 7.2 0 1 1 12 20.2Zm4-5.4c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1l-.7.9c-.1.1-.3.2-.5.1a5.8 5.8 0 0 1-2.9-2.5c-.2-.4.2-.3.6-1.1.1-.1 0-.3 0-.4L9.7 9.1c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.1 1.7 2.6 4.1 3.6.6.2 1 .4 1.4.5.6.2 1.1.1 1.5-.1.5-.2 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg>
+          Quiero cotizar para mi taller
+        </a>
+        <p class="hero-note" style="margin-top:14px;">331 796 0077 — línea directa talleres</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. CIERRE -->
+  <section class="section closing">
+    <div class="wrap reveal">
+      <div class="eyebrow" style="justify-content:center;">Antes de gastar más dinero</div>
+      <p class="big">Si tu turbo ya presenta una falla, dejar pasar el problema puede terminar afectando el funcionamiento del vehículo o provocar reparaciones adicionales.</p>
+      <p class="big">Primero identifica la causa.<br>Después instala la pieza correcta.</p>
+
+      <div class="brand-line">
+        <span class="brand-word">TURBOS <b style="color:var(--boost)">IH</b></span>
+        <p>Especialistas en turbocargadores diésel y gasolina</p>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://wa.me/523319662931" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.3A8.6 8.6 0 0 0 3.6 16L2 22l6.2-1.6a8.6 8.6 0 0 0 4.1 1H12a8.6 8.6 0 0 0 5.6-15.1ZM12 20.2a7 7 0 0 1-3.6-1l-.3-.2-3.7 1 1-3.6-.2-.3A7.2 7.2 0 1 1 12 20.2Zm4-5.4c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1l-.7.9c-.1.1-.3.2-.5.1a5.8 5.8 0 0 1-2.9-2.5c-.2-.4.2-.3.6-1.1.1-.1 0-.3 0-.4L9.7 9.1c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.1 1.7 2.6 4.1 3.6.6.2 1 .4 1.4.5.6.2 1.1.1 1.5-.1.5-.2 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg>
+          Cotizar ahora por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="brand-word">TURBOS <b style="color:var(--boost)">IH</b></span>
+        <p style="margin-top:14px; color:var(--ink-dim); max-width:38ch; font-size:.92rem;">Especialistas en turbocargadores diésel y gasolina para automóviles, camionetas y vehículos de trabajo.</p>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <a class="contact-line plate" href="https://wa.me/523319662931" target="_blank" rel="noopener">
+          <span class="tick-a"></span><span class="tick-b"></span>
+          <span class="label">Cotizaciones</span>
+          <span class="num">331 966 2931</span>
+        </a>
+        <a class="contact-line plate" href="https://wa.me/523317960077" target="_blank" rel="noopener">
+          <span class="tick-a"></span><span class="tick-b"></span>
+          <span class="label">Talleres y mecánicos</span>
+          <span class="num">331 796 0077</span>
+        </a>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul class="foot-links">
+          <li><a href="#nosotros">Por qué nosotros</a></li>
+          <li><a href="#diagnostico">Diagnóstico</a></li>
+          <li><a href="#aplicaciones">Aplicaciones</a></li>
+          <li><a href="#talleres">Talleres y mecánicos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Turbos IH</span>
+      <span>Diésel &amp; gasolina · Trabajo pesado &amp; particular</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var toggle = document.getElementById('navToggle');
+  var panel = document.getElementById('mobilePanel');
+  toggle.addEventListener('click', function(){
+    var open = panel.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      panel.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+
+</body>
+</html>
